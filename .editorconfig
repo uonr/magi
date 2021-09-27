@@ -1,0 +1,9 @@
+[*]
+end_of_line = lf
+insert_final_newline = true
+[*.plist]
+tab_width = 2
+[*.nix]
+tab_width = 2
+[*.{yaml, yml}]
+tab_width = 2
