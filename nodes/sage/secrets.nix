@@ -1,5 +1,7 @@
 { ... }: 
 
 {
-  sops.defaultSopsFile = ../../secrets/sage.yaml;
+  imports = [
+    ../../secrets/sage.nix;
+  ];
 }

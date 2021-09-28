@@ -8,7 +8,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./reverse-proxy.nix
-      ./networking.nix
+      ./play_trpg.nix
     ];
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
@@ -47,6 +47,16 @@
   networking.bbr.enable = true;
   services.nginx.enable = true;
 
+  virtualisation = {
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      dockerSocket.enable = true;
+      defaultNetwork.dnsname.enable = true;
+    };
+    oci-containers.backend = "podman";
+    docker.enable = false;
+  };
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
