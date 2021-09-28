@@ -5,6 +5,14 @@ let
   uid = 9831;
   gid = uid;
   home = "/var/lib/play_trpg";
+  environment = {
+    DJANGO_SETTINGS_MODULE = "play_trpg.settings";
+    POSTGRES_DB = "play_trpg";
+    POSTGRES_USER = "play_trpg";
+    REDIS_HOST = "127.0.0.1";
+    PORT = port;
+    ARCHIVE_URL = "https://log.mythal.net/";
+  };
 in {
   system.activationScripts.playTrpg.text = ''
     chmod a+x ${home};
@@ -14,6 +22,8 @@ in {
     chown -R ${toString uid}:${toString gid} ${home}/db
   '';
   services.nginx.virtualHosts."log.mythal.net" = {
+    addSSL = true;
+    enableACME = true;
     locations."/" = {
       extraConfig = ''
         uwsgi_pass 127.0.0.1:${port};
@@ -53,6 +63,20 @@ in {
     sopsFile = ../../secrets/play_trpg;
   };
   virtualisation.oci-containers.containers = {
+    playtrpg-bot = {
+      image = "whoooa/play_trpg_bot:latest";
+      cmd = [ "python" "start_bot.py" ];
+      extraOptions = [ "--pull=always" "--network=host" ];
+      user = "${toString uid}:${toString gid}";
+      volumes = [
+        "${home}/data:/code/data"
+        "/var/run/postgresql/:/var/run/postgresql"
+      ];
+      inherit environment;
+      environmentFiles = [
+        config.sops.secrets.playTrpgEnv.path
+      ];
+    };
     playtrpg-web = {
       image = "whoooa/play_trpg_bot:latest";
       cmd = [ "./start.sh" ];
@@ -62,13 +86,7 @@ in {
         "${home}/data:/code/data"
         "/var/run/postgresql/:/var/run/postgresql"
       ];
-      environment = {
-        DJANGO_SETTINGS_MODULE = "play_trpg.settings";
-        POSTGRES_DB = "play_trpg";
-        POSTGRES_USER = "play_trpg";
-        REDIS_HOST = "127.0.0.1";
-        PORT = port;
-      };
+      inherit environment;
       environmentFiles = [
         config.sops.secrets.playTrpgEnv.path
       ];
