@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
 let
-  port = "8880";
+  port = "8885";
   uid = 9831;
   gid = uid;
   home = "/var/lib/play_trpg";
@@ -79,7 +79,7 @@ in {
     };
     playtrpg-web = {
       image = "whoooa/play_trpg_bot:latest";
-      cmd = [ "./start.sh" ];
+      cmd = [ "uwsgi" "--ini" "deploy/uwsgi.ini" "--socket" "127.0.0.1:${port}" ];
       extraOptions = [ "--pull=always" "--network=host" ];
       user = "${toString uid}:${toString gid}";
       volumes = [
