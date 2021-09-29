@@ -9,9 +9,11 @@
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = github:Mic92/sops-nix;
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+    telegram-dice-bot.url = github:mythal/telegram-dice-bot;
+    telegram-dice-bot.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, deploy-rs, home-manager, sops-nix }:
+  outputs = { self, nixpkgs, deploy-rs, home-manager, sops-nix, telegram-dice-bot }:
   with nixpkgs.lib;
   let 
     nodes = {
@@ -28,6 +30,7 @@
     nixosConfigurations = mapAttrs (hostname: { system, ... }: nixosSystem {
       inherit system;
       modules = [
+        telegram-dice-bot.nixosModule.${system}
         home-manager.nixosModules.home-manager
         sops-nix.nixosModules.sops
         ./modules
