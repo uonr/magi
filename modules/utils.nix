@@ -6,7 +6,6 @@
   environment.systemPackages = with pkgs; [
     wget
     git
-    htop
     btop
     zsh
     exa # https://the.exa.website/introduction

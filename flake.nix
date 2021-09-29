@@ -33,6 +33,10 @@
         host = "10.110.1.1";
         system = "x86_64-linux";
       };
+      koma = {
+        host = "192.168.10.101";
+        system = "x86_64-linux";
+      };
     };
   in {
     nixosConfigurations = mapAttrs (hostname: { system, ... }: nixosSystem {

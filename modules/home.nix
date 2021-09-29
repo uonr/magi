@@ -8,7 +8,10 @@
   programs.home-manager.enable = true;
   programs.bash = {
     enable = true;
-    initExtra = builtins.readFile ../share/init.sh;
+    initExtra = ''
+      ${builtins.readFile ../share/gpg-agent.sh}
+      ${builtins.readFile ../share/init.sh}
+    '';
   };
   programs.git = {
     enable = true;
@@ -35,7 +38,8 @@
     defaultKeymap = "emacs";
     initExtra = ''
       fpath+=${pkgs.pure-prompt}/share/zsh/site-functions
-      ${builtins.readFile ../share/init.zsh};
+      ${builtins.readFile ../share/gpg-agent.sh}
+      ${builtins.readFile ../share/init.zsh}
     '';
     plugins = [
     ];
