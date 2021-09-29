@@ -11,9 +11,13 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     telegram-dice-bot.url = github:mythal/telegram-dice-bot;
     telegram-dice-bot.inputs.nixpkgs.follows = "nixpkgs";
+    boluo-server.url = github:mythal/boluo-server;
+    boluo-server.inputs.nixpkgs.follows = "nixpkgs";
+    minecraft-telegram-bot.url = github:uonr/minecraft-telegram-bot;
+    minecraft-telegram-bot.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, deploy-rs, home-manager, sops-nix, telegram-dice-bot }:
+  outputs = { self, nixpkgs, deploy-rs, home-manager, sops-nix, telegram-dice-bot, minecraft-telegram-bot, boluo-server }:
   with nixpkgs.lib;
   let 
     nodes = {
@@ -25,12 +29,24 @@
         host = "10.110.100.7";
         system = "x86_64-linux";
       };
+      lime = {
+        host = "10.110.1.1";
+        system = "x86_64-linux";
+      };
     };
   in {
     nixosConfigurations = mapAttrs (hostname: { system, ... }: nixosSystem {
       inherit system;
       modules = [
         telegram-dice-bot.nixosModule.${system}
+        {
+          nixpkgs.overlays = [
+            (final: prev: {
+              boluo-server = boluo-server.defaultPackage.${system};
+              minecraft-telegram-bot = minecraft-telegram-bot.defaultPackage.${system};
+            })
+          ];
+        }
         home-manager.nixosModules.home-manager
         sops-nix.nixosModules.sops
         ./modules

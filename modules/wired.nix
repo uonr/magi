@@ -20,6 +20,7 @@ in {
       format = "binary";
       sopsFile = ../secrets/nebula/${cfg.hostName}.key;
     };
+    networking.firewall.allowedUDPPorts = [ 4242 ];
     services.nebula.networks.wired = {
       enable = true;
       isLighthouse = cfg.isLighthouse;
