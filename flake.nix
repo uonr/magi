@@ -11,44 +11,47 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, deploy-rs, home-manager, sops-nix }: {
-    nixosConfigurations.sage = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        home-manager.nixosModules.home-manager
-        sops-nix.nixosModules.sops
-        ./modules
-        ./nodes/sage/configuration.nix
-      ];
-    };
-    nixosConfigurations.lily = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        home-manager.nixosModules.home-manager
-        sops-nix.nixosModules.sops
-        ./modules
-        ./nodes/lily/configuration.nix
-      ];
-    };
-    deploy.nodes = {
+  outputs = { self, nixpkgs, deploy-rs, home-manager, sops-nix }:
+  with nixpkgs.lib;
+  let 
+    nodes = {
       sage = {
-        sshUser = "root";
-        hostname = "10.110.100.5";
-        profiles.system = {
-          user = "root";
-          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.sage;
-        };
+        host = "10.110.100.5";
+        system = "x86_64-linux";
       };
-
       lily = {
-        sshUser = "root";
-        hostname = "185.148.14.228";
-        profiles.system = {
-          user = "root";
-          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.lily;
-        };
+        host = "10.110.100.7";
+        system = "x86_64-linux";
       };
     };
+  in {
+    nixosConfigurations = mapAttrs (hostname: { system, ... }: nixosSystem {
+      inherit system;
+      modules = [
+        home-manager.nixosModules.home-manager
+        sops-nix.nixosModules.sops
+        ./modules
+        ./nodes/${hostname}/configuration.nix
+        {
+          networking.extraHosts = let
+            join = concatStringsSep "\n";
+            hostsLine = hostname: { host, ... }: "${host}    ${hostname}";
+            filterSelf = name: { ... }: name != hostname;
+            otherHosts = filterAttrs filterSelf nodes;
+            hostsLines = mapAttrsToList hostsLine otherHosts;
+          in
+            join hostsLines;
+        }
+      ];
+    }) nodes;
+    deploy.nodes = mapAttrs (hostname: { host, system, ... }: {
+      sshUser = "root";
+      hostname = host;
+      profiles.system = {
+        user = "root";
+        path = deploy-rs.lib.${system}.activate.nixos self.nixosConfigurations.${hostname};
+      };
+    }) nodes;
 
     # This is highly advised, and will prevent many possible mistakes
     checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
