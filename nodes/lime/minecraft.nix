@@ -20,23 +20,11 @@ in {
     openFirewall = true;
     jvmOpts = "-Xmx2048M -Xms1024M -XX:+UseG1GC";
   };
-  systemd.services.minecraft-telegram-bot = {
+  services.minecraft-telegram-bot = {
     enable = true;
-    requires = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "simple";
-      User = "root";
-      Group = "root";
-      WorkingDirectory = "/var/lib/minecraft/";
-      EnvironmentFile = config.sops.secrets.minecraftBotEnv.path;
-      MemoryMax = "128M";
-    };
-    script = "${pkgs.minecraft-telegram-bot}/bin/bot.py";
-    environment = {
-      LOG_FILE_PATH = "/var/lib/minecraft/logs/latest.log";
-      CHAT_TITLE = "炸魚禁止";
-    };
+    logFilePath = "/var/lib/minecraft/logs/latest.log";
+    chatTitle = "炸魚禁止";
+    environmentFile = config.sops.secrets.minecraftBotEnv.path;
   };
   sops.secrets.minecraftBotEnv = {
     format = "binary";

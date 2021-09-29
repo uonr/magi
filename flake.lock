@@ -104,11 +104,11 @@
         "utils": "utils_3"
       },
       "locked": {
-        "lastModified": 1628932601,
-        "narHash": "sha256-Oyc4l4SvDSOAbtFN7j0LHrbi6a+qHM6CFVXSeXXhhmg=",
+        "lastModified": 1632900342,
+        "narHash": "sha256-ga55cPemwWJY2OhZ3LUMTZEOnzywmpZqfZKuMjSEtB0=",
         "owner": "uonr",
         "repo": "minecraft-telegram-bot",
-        "rev": "79ff187d88a6e1d18fecf9778933877562036877",
+        "rev": "5b1cc2f9e64ce651820892a6da080acea3ef90dc",
         "type": "github"
       },
       "original": {
@@ -217,11 +217,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1632832687,
-        "narHash": "sha256-y7Us3d32vJl2TRQXUDQqSmLIP+k2z1Sn4vTaKL7VE44=",
+        "lastModified": 1632896262,
+        "narHash": "sha256-eglwV73HOaeCWOSyUSw2/OHISefMevk1814jENZymNw=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "8c5c313b562edee5a6ec2e118256a72710cc08b2",
+        "rev": "ae84c313c5250a832d61dae9e1e659b27542c47b",
         "type": "github"
       },
       "original": {

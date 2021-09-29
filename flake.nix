@@ -39,11 +39,11 @@
       inherit system;
       modules = [
         telegram-dice-bot.nixosModule.${system}
+        minecraft-telegram-bot.nixosModule.${system}
         {
           nixpkgs.overlays = [
             (final: prev: {
               boluo-server = boluo-server.defaultPackage.${system};
-              minecraft-telegram-bot = minecraft-telegram-bot.defaultPackage.${system};
             })
           ];
         }
