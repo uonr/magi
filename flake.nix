@@ -21,6 +21,15 @@
         ./nodes/sage/configuration.nix
       ];
     };
+    nixosConfigurations.lily = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        home-manager.nixosModules.home-manager
+        sops-nix.nixosModules.sops
+        ./modules
+        ./nodes/lily/configuration.nix
+      ];
+    };
     deploy.nodes = {
       sage = {
         sshUser = "root";
@@ -28,6 +37,15 @@
         profiles.system = {
           user = "root";
           path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.sage;
+        };
+      };
+
+      lily = {
+        sshUser = "root";
+        hostname = "185.148.14.228";
+        profiles.system = {
+          user = "root";
+          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.lily;
         };
       };
     };

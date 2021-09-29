@@ -7,8 +7,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./reverse-proxy.nix
-      ./play_trpg.nix
       ./secrets.nix
     ];
   boot.loader.grub.enable = true;
@@ -18,7 +16,7 @@
   # Set your time zone.
   time.timeZone = "UTC";
 
-  networking.hostName = "sage";
+  networking.hostName = "lily";
 
   users.mutableUsers = false;
   users.users.root.openssh.authorizedKeys.keys = [ config.sshKey ];
@@ -48,16 +46,6 @@
   networking.bbr.enable = true;
   services.nginx.enable = true;
 
-  virtualisation = {
-    podman = {
-      enable = true;
-      dockerCompat = true;
-      dockerSocket.enable = true;
-      defaultNetwork.dnsname.enable = true;
-    };
-    oci-containers.backend = "podman";
-    docker.enable = false;
-  };
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

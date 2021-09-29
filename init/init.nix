@@ -11,6 +11,8 @@ let
   defaultGateway = "";
   # ip -6 route show
   defaultGateway6 = "";
+  # cat /etc/resolv.conf
+  nameservers = [ "8.8.8.8" "8.8.4.4" ];
 in
 {
   imports =
@@ -41,18 +43,20 @@ in
     hostName = hostName;
     enableIPv6 = true;
     usePredictableInterfaceNames = false;
-    nameservers = [ "8.8.8.8" "8.8.4.4" ];
+    
+    inherit nameservers;
     defaultGateway = defaultGateway;
     defaultGateway6 = defaultGateway6;
     interfaces = {
       eth0 = {
-	    useDHCP = true;
         ipv4.addresses = [
           { address = ipv4; prefixLength = 32; }
         ];
+        ipv4.routes = [ { address = defaultGateway; prefixLength = 32; } ];
         ipv6.addresses = [
           { address = ipv6; prefixLength = 64; }
         ];
+        ipv6.routes = [ { address = defaultGateway6; prefixLength = 64; } ];
       };
     };
   };

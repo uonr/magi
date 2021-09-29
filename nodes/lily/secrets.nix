@@ -2,6 +2,6 @@
 
 {
   imports = [
-    ../../secrets/sage.nix
+    ../../secrets/lily.nix
   ];
 }
