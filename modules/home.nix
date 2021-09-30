@@ -51,8 +51,6 @@
       ${builtins.readFile ../share/gpg-agent.sh}
       ${builtins.readFile ../share/init.zsh}
     '';
-    plugins = [
-    ];
   };
   programs.fish = {
     enable = true;

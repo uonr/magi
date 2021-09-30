@@ -7,7 +7,6 @@
     wget
     git
     btop
-    zsh
     exa # https://the.exa.website/introduction
     bat
     xplr # https://arijitbasu.in/xplr/en/introduction.html
@@ -24,6 +23,10 @@
     pinentry-curses
     deploy-rs.deploy-rs
   ];
-  environment.pathsToLink = [ "/share/zsh" ];
+  programs.fish.enable = true;
+  programs.zsh = {
+    enable = true;
+    syntaxHighlighting.enable = true;
+  };
   environment.variables.PAGER = "less --RAW-CONTROL-CHARS --quit-if-one-screen";
 }
