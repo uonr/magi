@@ -13,6 +13,9 @@
     vscode
     obsidian
     steam
+    cockatrice
+    anki-bin
+    vlc
   ];
   programs.git = {
     userName = "Tachibana Kiyomi";
