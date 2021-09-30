@@ -17,7 +17,16 @@
     enable = true;
     aliases = {
       co = "checkout";
+      c = "commit -a -S";
+      clone = "clone --recurse-submodules";
       sub = "submodule update --init --recursive";
+    };
+    delta.enable = true;
+    extraConfig = {
+      difftool.prompt = true;
+      diff.tool = "nvimdiff";
+      init.defaultBranch = "master";
+      pull.rebase = true;
     };
   };
   programs.fzf = {
