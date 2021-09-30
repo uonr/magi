@@ -1,10 +1,9 @@
 { pkgs, lib, config, ... }:
 
 let 
-  user = "mikan";
-  group = "users";
+  uid = config.users.users.mikan.uid;
+  gid = config.users.groups.users.gid;
   port = 8183;
-  dataDir = "yuru-library";
 in {
   services.nginx.virtualHosts."lib.yuru.me" = config.cert.yuru_me.nginxSettings // {
     forceSSL = true;
@@ -13,20 +12,31 @@ in {
       extraConfig = ''client_max_body_size 512m;'';
     };
   };
-  # system.activationScripts.libraryInit.text = ''
-  #   mkdir -p /var/lib/${dataDir}
-  #   chown -R ${user}:${group} /var/lib/${dataDir}
-  # '';
-  services.calibre-web = {
-    enable = true;
-    user = user;
-    # inherit dataDir;
-    options = {
-      enableBookUploading = true;
-      enableBookConversion = true;
-      calibreLibrary = "/state/library";
+
+  containers.library = {
+    autoStart = true;
+    bindMounts.calibreLibrary = {
+      hostPath = "/state/yuru-library";
+      mountPoint = "/var/lib/library";
+      isReadOnly = false;
     };
-    listen.ip = "127.0.0.1";
-    listen.port = port;
+    config = { ... }:
+    {
+      users.users.mikan = {
+        isNormalUser = true;
+        uid = uid;
+      };
+      services.calibre-web = {
+        enable = true;
+        user = "mikan";
+        options = {
+          enableBookUploading = true;
+          enableBookConversion = true;
+          calibreLibrary = "/var/lib/library";
+        };
+        listen.ip = "127.0.0.1";
+        listen.port = port;
+      };
+    };
   };
 }
