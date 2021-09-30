@@ -34,7 +34,7 @@
         system = "x86_64-linux";
       };
       koma = {
-        host = "192.168.10.101";
+        host = "10.110.100.2";
         system = "x86_64-linux";
       };
     };
@@ -46,6 +46,7 @@
         minecraft-telegram-bot.nixosModule.${system}
         {
           nixpkgs.overlays = [
+            deploy-rs.overlay
             (final: prev: {
               boluo-server = boluo-server.defaultPackage.${system};
             })

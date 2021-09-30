@@ -21,7 +21,6 @@
   ];
   environment.gnome.excludePackages = with pkgs; [
     gnome.cheese
-    gnome-photos
     gnome.gnome-music
     gnome-tour
     gnome-connections

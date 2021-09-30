@@ -8,6 +8,9 @@ let
     sys = "systemctl";
     jou = "journalctl";
     jor = "journalctl";
+    htop = "btop";
+    top = "btop";
+    doco = "docker-compose";
   };
 in
 {
