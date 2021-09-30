@@ -17,8 +17,6 @@
   # Set your time zone.
   time.timeZone = "UTC";
 
-  networking.hostName = "sage";
-
   users.mutableUsers = false;
   users.users.root.openssh.authorizedKeys.keys = [ config.sshKey ];
   users.users.mikan = {

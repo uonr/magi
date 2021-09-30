@@ -26,7 +26,6 @@
   # boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
   boot.loader.grub.device = "/dev/vda";
 
-  networking.hostName = "lime"; # Define your hostname.
   networking.bbr.enable = true;
 
   # Set your time zone.

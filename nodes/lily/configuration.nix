@@ -15,8 +15,6 @@
   # Set your time zone.
   time.timeZone = "UTC";
 
-  networking.hostName = "lily";
-
   users.mutableUsers = false;
   users.users.root.openssh.authorizedKeys.keys = [ config.sshKey ];
   users.users.mikan = {

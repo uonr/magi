@@ -20,8 +20,6 @@ in {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "koma"; # Define your hostname.
-
   # Set your time zone.
   time.timeZone = "Asia/Tokyo";
 

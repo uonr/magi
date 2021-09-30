@@ -57,6 +57,7 @@
         ./nodes/${hostname}/configuration.nix
         ./secrets/nodes/${hostname}.nix
         {
+          networking.hostName = hostname;
           networking.extraHosts = let
             join = concatStringsSep "\n";
             hostsLine = hostname: { host, ... }: "${host}    ${hostname}";
