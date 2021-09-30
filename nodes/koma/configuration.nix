@@ -14,6 +14,7 @@
       ./manga.nix
       ./acme.nix
       ./archive.nix
+      ./library.nix
       ./booru.nix
     ];
 

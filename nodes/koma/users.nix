@@ -26,7 +26,7 @@
   users.users.mikan = {
     isNormalUser = true;
     openssh.authorizedKeys.keys = config.sshKeys;
-    extraGroups = [ "wheel" "audio" "video" "networkmanager" "disk" "systemd-journal" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "audio" "video" "networkmanager" "disk" "systemd-journal" "docker" ]; # Enable ‘sudo’ for the user.
   };
   users.users.root.shell = pkgs.zsh;
   users.users.mikan.shell = pkgs.zsh;
@@ -44,6 +44,7 @@
       tdesktop
       google-chrome
       _1password-gui
+      calibre
       minecraft
       vscode
       obsidian
