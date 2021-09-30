@@ -34,7 +34,7 @@ in {
   # programs.mtr.enable = true;
   programs.gnupg.agent = {
     enable = true;
-    # pinentryFlavor = "curses";
+    pinentryFlavor = "curses";
     enableSSHSupport = true;
   };
   services.yubikey-agent.enable = true;

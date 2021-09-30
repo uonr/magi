@@ -11,6 +11,7 @@ let
     htop = "btop";
     top = "btop";
     doco = "docker-compose";
+    fixgpg = "killall --wait gpg-agent && gpg-connect-agent updatestartuptty /bye > /dev/null";
   };
 in
 {

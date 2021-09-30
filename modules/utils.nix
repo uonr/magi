@@ -20,6 +20,8 @@
     du-dust # https://github.com/bootandy/dust#usage
     procs # https://github.com/dalance/procs#usage
     unar
+    killall
+    pinentry-curses
     deploy-rs.deploy-rs
   ];
   environment.pathsToLink = [ "/share/zsh" ];
