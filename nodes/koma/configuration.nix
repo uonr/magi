@@ -12,7 +12,6 @@ in {
       ./hardware-configuration.nix
       ./devices.nix
       ./graphic.nix
-      ./secrets.nix
       ./users.nix
       ./manga.nix
     ];

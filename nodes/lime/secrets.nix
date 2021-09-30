@@ -1,5 +1,0 @@
-{ ... }: {
-  imports = [
-    ../../secrets/lime.nix
-  ];
-}

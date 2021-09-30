@@ -1,7 +1,0 @@
-{ ... }: 
-
-{
-  imports = [
-    ../../secrets/lily.nix
-  ];
-}

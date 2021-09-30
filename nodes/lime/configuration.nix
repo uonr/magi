@@ -8,7 +8,6 @@
   imports =
     [
       ./hardware-configuration.nix
-      ./secrets.nix
       ./minecraft.nix
       ./dns.nix
       ./netdata.nix

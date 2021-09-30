@@ -9,7 +9,6 @@
       ./hardware-configuration.nix
       ./reverse-proxy.nix
       ./play_trpg.nix
-      ./secrets.nix
     ];
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;

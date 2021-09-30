@@ -7,7 +7,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./secrets.nix
     ];
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;

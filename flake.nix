@@ -55,6 +55,7 @@
         sops-nix.nixosModules.sops
         ./modules
         ./nodes/${hostname}/configuration.nix
+        ./secrets/nodes/${hostname}.nix
         {
           networking.extraHosts = let
             join = concatStringsSep "\n";
