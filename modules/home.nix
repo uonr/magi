@@ -21,6 +21,7 @@
       clone = "clone --recurse-submodules";
       sub = "submodule update --init --recursive";
     };
+    ignores = [ ".DS_Store" ];
     delta.enable = true;
     extraConfig = {
       difftool.prompt = true;
