@@ -14,6 +14,7 @@ in {
       ./graphic.nix
       ./users.nix
       ./manga.nix
+      ./acme.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
