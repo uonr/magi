@@ -15,6 +15,8 @@ in {
       ./users.nix
       ./manga.nix
       ./acme.nix
+      ./archive.nix
+      ./booru.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -26,7 +28,19 @@ in {
 
   networking.interfaces.enp2s0f0.useDHCP = true;
   networking.interfaces.wlp3s0.useDHCP = true;
-
+  environment.systemPackages = with pkgs; [
+    docker-compose
+  ];
+  virtualisation = {
+    podman = {
+      enable = false;
+      dockerCompat = true;
+      dockerSocket.enable = true;
+      defaultNetwork.dnsname.enable = true;
+    };
+    oci-containers.backend = "docker";
+    docker.enable = true;
+  };
   services.vscode-server.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are

@@ -17,13 +17,7 @@ in {
   '';
   users.groups.manga = { name = "manga"; members = ["manga"]; gid = gid; };
   # services.ddclient.domains = [ "manga.yuru.me" ];
-  services.nginx.virtualHosts."manga.yuru.me" =
-  let
-    certDir = config.security.acme.certs."yuru.me".directory;
-  in {
-    sslCertificate = "${certDir}/fullchain.pem";
-    sslCertificateKey = "${certDir}/key.pem";
-    sslTrustedCertificate = "${certDir}/chain.pem";
+  services.nginx.virtualHosts."manga.yuru.me" = config.cert.yuru_me.nginxSettings // {
     forceSSL = true;
     locations."/" = {
       proxyPass = "http://127.0.0.1:${port}";
