@@ -18,10 +18,10 @@
   time.timeZone = "UTC";
 
   users.mutableUsers = false;
-  users.users.root.openssh.authorizedKeys.keys = [ config.sshKey ];
+  users.users.root.openssh.authorizedKeys.keys = config.sshKeys;
   users.users.mikan = {
     isNormalUser = true;
-    openssh.authorizedKeys.keys = [ config.sshKey ];
+    openssh.authorizedKeys.keys = config.sshKeys;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
   security.sudo.extraRules = [

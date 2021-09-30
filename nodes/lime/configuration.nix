@@ -32,12 +32,12 @@
   time.timeZone = "UTC";
 
   users.mutableUsers = false;
-  users.users.root.openssh.authorizedKeys.keys = [ config.sshKey ];
+  users.users.root.openssh.authorizedKeys.keys = config.sshKeys;
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.mikan = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    openssh.authorizedKeys.keys = [ config.sshKey ];
+    openssh.authorizedKeys.keys = config.sshKeys;
   };
 
   security.sudo.extraRules = [

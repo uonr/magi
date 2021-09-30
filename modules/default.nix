@@ -12,10 +12,6 @@ with lib;
     ./webserver.nix
     ./vscode-server.nix
   ];
-  options.sshKey = mkOption {
-    type = types.str;
-    default = builtins.readFile ../share/ssh.pub;
-  };
   config = {
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;

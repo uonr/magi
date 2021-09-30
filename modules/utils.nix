@@ -20,6 +20,7 @@
     procs # https://github.com/dalance/procs#usage
     unar
     killall
+    gnupg
     pinentry-curses
     deploy-rs.deploy-rs
   ];

@@ -4,9 +4,7 @@
 
 { config, pkgs, ... }:
 
-let
-  sshKey = config.sshKey;
-in {
+{
   imports =
     [
       ./hardware-configuration.nix
@@ -46,12 +44,6 @@ in {
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    pinentryFlavor = "curses";
-    enableSSHSupport = true;
-  };
-  services.yubikey-agent.enable = true;
 
   # List services that you want to enable:
 

@@ -67,7 +67,7 @@ in
 
   users.users.blog = {
     isNormalUser = true;
-    openssh.authorizedKeys.keys = [ config.sshKey ]; 
+    openssh.authorizedKeys.keys = config.sshKeys; 
   };
 
   networking.firewall.allowedTCPPorts = [ 873 ];
