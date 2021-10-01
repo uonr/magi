@@ -2,6 +2,7 @@
 
 let
   port = "8885";
+  postgres = pkgs.postgresql_13;
   uid = 9831;
   gid = uid;
   home = "/var/lib/play_trpg";
@@ -47,7 +48,7 @@ in {
   services.redis.enable = true;
   services.postgresql = {
     enable = true; 
-    package = pkgs.postgresql_13;
+    package = postgres;
     ensureDatabases = [ "play_trpg" ];
     ensureUsers = [
       {
@@ -61,6 +62,30 @@ in {
   sops.secrets.playTrpgEnv = {
     format = "binary";
     sopsFile = ../../secrets/play_trpg;
+  };
+  sops.secrets.borg-key-play_trpg = {
+    owner = "play_trpg";
+    group = "play_trpg";
+    format = "binary";
+    sopsFile = ../../secrets/borg/sage.play_trpg;
+  };
+  services.borgbackup.jobs = {
+    play_trpg = {
+      paths = [ "${home}/data" "/tmp/play_trpg.db.dump" ];
+      user = "play_trpg";
+      group = "play_trpg";
+      repo =  "borg@koma:.";
+      preHook = "${postgres}/bin/pg_dump play_trpg > /tmp/play_trpg.db.dump";
+      environment = {
+        BORG_RSH = "ssh -o 'StrictHostKeyChecking=no' -o 'UserKnownHostsFile /dev/null' -i ${config.sops.secrets.borg-key-play_trpg.path}";
+        BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK = "yes";
+      };
+      encryption = {
+        mode = "none";
+      };
+      compression = "auto,lzma";
+      startAt = "hourly";
+    };
   };
   virtualisation.oci-containers.containers = {
     playtrpg-bot = {

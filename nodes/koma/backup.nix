@@ -7,6 +7,7 @@ let
     minecraft = keyPath "lime.minecraft";
     ioover_net = keyPath "lime.ioover.net";
     boluo = keyPath "lime.boluo.chat";
+    play_trpg = keyPath "sage.play_trpg";
   };
 in { 
   users.users.borg.home = borgRepos;
@@ -26,6 +27,11 @@ in {
       authorizedKeys = [ nodeKey.boluo ];
       quota = "32G";
       path = "${borgRepos}/boluo";
+    };
+    play_trpg = {
+      authorizedKeys = [ nodeKey.play_trpg ];
+      quota = "4G";
+      path = "${borgRepos}/play_trpg";
     };
   };
 }

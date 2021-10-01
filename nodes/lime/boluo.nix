@@ -107,7 +107,6 @@ in {
   services.borgbackup.jobs = {
     boluo = {
       paths = [ "/var/lib/boluo" "/tmp/boluo.db.dump" ];
-      doInit = true;
       user = "boluo";
       group = "boluo";
       repo =  "borg@koma:.";
