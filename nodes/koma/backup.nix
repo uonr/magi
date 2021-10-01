@@ -8,6 +8,7 @@ let
     ioover_net = keyPath "lime.ioover.net";
     boluo = keyPath "lime.boluo.chat";
     play_trpg = keyPath "sage.play_trpg";
+    mythal = keyPath "lime.mythal";
   };
 in { 
   users.users.borg.home = borgRepos;
@@ -32,6 +33,11 @@ in {
       authorizedKeys = [ nodeKey.play_trpg ];
       quota = "4G";
       path = "${borgRepos}/play_trpg";
+    };
+    mythal = {
+      authorizedKeys = [ nodeKey.mythal ];
+      quota = "4G";
+      path = "${borgRepos}/mythal";
     };
   };
 }

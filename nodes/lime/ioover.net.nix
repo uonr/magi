@@ -73,7 +73,7 @@ in
     ioover_net = {
       paths = [ "/var/lib/isso" ];
       doInit = true;
-      repo =  "borg@koma:." ;
+      repo =  "borg@${config.backupHost}:." ;
       encryption = {
         mode = "none";
       };

@@ -1,4 +1,4 @@
-{ pkgs, ... }: 
+{ pkgs, config, ... }: 
 let
   port = 8081;
   uid = 941;
@@ -15,6 +15,8 @@ let
   forumDbName = "boluo_forum";
   wikiMaxBodySize = "128M";
   forumMaxBodySize = "128M";
+  backupHost = config.backupHost;
+  mysql = pkgs.mariadb;
 in {
   users.users.mythal = {
     isNormalUser = true;
@@ -68,9 +70,20 @@ in {
       '';
     };
   };
+
+  sops.secrets.borg-key-mythal = {
+    format = "binary";
+    sopsFile = ../../secrets/borg/lime.mythal;
+  };
+
   containers.mythal = {
     autoStart = true;
 
+    bindMounts.sshKey = {
+      hostPath = config.sops.secrets.borg-key-mythal.path;
+      mountPoint = "/run/ssh-key";
+      isReadOnly = true;
+    };
     bindMounts."files" = {
       hostPath = "${home}/srv/files";
       mountPoint = "/srv/files";
@@ -106,7 +119,7 @@ in {
       ];
       services.mysql = {
         enable = true;
-        package = pkgs.mariadb;
+        package = mysql;
         ensureDatabases = [
           wikiDbName
           forumDbName
@@ -242,6 +255,26 @@ in {
           };
         };
       };
-    };
-  };
+
+      services.borgbackup.jobs = {
+        mythal = {
+          paths = [ "/tmp/mythal.db.dump" "/srv/forum" "/srv/wiki" ];
+          repo =  "borg@${backupHost}:.";
+          preHook = "${pkgs.mysql}/bin/mysqldump --user root --all-databases > /tmp/mythal.db.dump";
+          environment = {
+            BORG_RSH = "ssh -o 'StrictHostKeyChecking=no' -o 'UserKnownHostsFile /dev/null' -i /run/ssh-key";
+            BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK = "yes";
+          };
+          encryption = {
+            mode = "none";
+          };
+          compression = "auto,lzma";
+          startAt = "hourly";
+        };
+      };
+
+    }; # end of config
+  }; # end of container
+
+
 }

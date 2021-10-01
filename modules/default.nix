@@ -12,6 +12,7 @@ with lib;
     ./webserver.nix
     ./vscode-server.nix
   ];
+  options.backupHost = mkOption { type = types.str; default = "10.110.100.2"; };
   config = {
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;

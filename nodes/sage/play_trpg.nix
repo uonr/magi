@@ -74,7 +74,7 @@ in {
       paths = [ "${home}/data" "/tmp/play_trpg.db.dump" ];
       user = "play_trpg";
       group = "play_trpg";
-      repo =  "borg@koma:.";
+      repo =  "borg@${config.backupHost}:.";
       preHook = "${postgres}/bin/pg_dump play_trpg > /tmp/play_trpg.db.dump";
       environment = {
         BORG_RSH = "ssh -o 'StrictHostKeyChecking=no' -o 'UserKnownHostsFile /dev/null' -i ${config.sops.secrets.borg-key-play_trpg.path}";

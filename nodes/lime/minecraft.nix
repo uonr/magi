@@ -39,7 +39,7 @@ in {
     minecraft = {
       paths = [ "/var/lib/minecraft" ];
       doInit = true;
-      repo =  "borg@koma:.";
+      repo =  "borg@${config.backupHost}:.";
       encryption = {
         mode = "none";
       };

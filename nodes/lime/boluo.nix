@@ -109,7 +109,7 @@ in {
       paths = [ "/var/lib/boluo" "/tmp/boluo.db.dump" ];
       user = "boluo";
       group = "boluo";
-      repo =  "borg@koma:.";
+      repo =  "borg@${config.backupHost}:.";
       preHook = "${postgres}/bin/pg_dump boluo > /tmp/boluo.db.dump";
       environment = {
         BORG_RSH = "ssh -o 'StrictHostKeyChecking=no' -o 'UserKnownHostsFile /dev/null' -i ${config.sops.secrets.borg-key-boluo.path}";
