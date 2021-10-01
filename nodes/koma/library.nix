@@ -15,9 +15,15 @@ in {
 
   containers.library = {
     autoStart = true;
+    ephemeral = true;
     bindMounts.calibreLibrary = {
-      hostPath = "/state/yuru-library";
+      hostPath = "/state/library";
       mountPoint = "/var/lib/library";
+      isReadOnly = false;
+    };
+    bindMounts.calibreWeb = {
+      hostPath = "/state/library/calibre-web";
+      mountPoint = "/var/lib/calibre-web";
       isReadOnly = false;
     };
     config = { ... }:
