@@ -10,6 +10,7 @@ let
     jor = "journalctl";
     htop = "btop";
     top = "btop";
+    du = "dust";
     doco = "docker-compose";
     fixgpg = "killall --wait gpg-agent && gpg-connect-agent updatestartuptty /bye > /dev/null";
   };

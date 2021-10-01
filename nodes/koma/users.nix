@@ -2,6 +2,14 @@
 
 {
 
+  system.activationScripts.mangaInit.text = 
+  let
+    avatar = ../../share/avatar.jpg;
+    iconPath = "/var/lib/AccountsService/icons/mikan";
+  in ''
+    cp ${avatar} ${iconPath}
+    chmod 644 ${iconPath}
+  '';
   # https://nixos.wiki/wiki/Yubikey
   services.udev.packages = [ pkgs.yubikey-personalization ];
   programs.ssh.startAgent = false;
@@ -52,7 +60,7 @@
       steam
       yubikey-manager
       cockatrice
-      anki-bin
+      anki
       vlc
     ];
     programs.git = {

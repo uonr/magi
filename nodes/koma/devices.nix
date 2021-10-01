@@ -10,10 +10,13 @@
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.extraPackages = with pkgs; [
     amdvlk
+    rocm-opencl-icd
   ];
-  # hardware.opengl.extraPackages32 = with pkgs; [
-  #   driversi686Linux.amdvlk
-  # ];
+  hardware.opengl.extraPackages32 = with pkgs; [
+    driversi686Linux.amdvlk
+  ];
+  environment.variables.AMD_VULKAN_ICD = "RADV";
+
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
