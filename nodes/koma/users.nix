@@ -25,6 +25,7 @@
   users.users.root.openssh.authorizedKeys.keys = config.sshKeys;
   users.users.mikan = {
     isNormalUser = true;
+    uid = 1000;
     openssh.authorizedKeys.keys = config.sshKeys;
     extraGroups = [ "wheel" "audio" "video" "networkmanager" "disk" "systemd-journal" "docker" ]; # Enable ‘sudo’ for the user.
   };
