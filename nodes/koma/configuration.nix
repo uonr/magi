@@ -16,6 +16,7 @@
       ./archive.nix
       ./library.nix
       ./booru.nix
+      ./backup.nix
     ];
 
   # Use the systemd-boot EFI boot loader.

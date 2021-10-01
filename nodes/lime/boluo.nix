@@ -1,11 +1,23 @@
 { pkgs, lib, boluo-server, config, ... }:
 let
+  uid = 65220;
+  gid = uid;
   serverPort = "3000";
+  postgres = pkgs.postgresql_13;
 in {
+
+  users.users.boluo = {
+    isSystemUser = true;
+    uid = uid;
+    home = "/var/lib/boluo";
+    createHome = true;
+    group = "boluo";
+  };
+  users.groups.boluo = { name = "boluo"; members = [ "boluo" ]; gid = gid; };
   services.nginx.enable = true;
   services.postgresql = {
     enable = true; 
-    package = pkgs.postgresql_13;
+    package = postgres;
     ensureDatabases = [ "boluo" ];
     extraPlugins = with pkgs.postgresql13Packages; [ pg_rational ];
     ensureUsers = [
@@ -26,8 +38,6 @@ in {
       User = "boluo";
       Group = "boluo";
       Type = "simple";
-      DynamicUser = true;
-      StateDirectory = "boluo";
       Restart = "on-failure";
       WorkingDirectory = "/var/lib/boluo/";
     };
@@ -79,6 +89,39 @@ in {
     };
     locations."/" = {
       tryFiles = "$uri $uri/ /index.html";
+    };
+  };
+
+  sops.secrets.borg-passphrase-boluo = {
+    owner = "boluo";
+    group = "boluo";
+    format = "binary";
+    sopsFile = ../../secrets/borg/lime.borg.passphrase.boluo;
+  };
+  sops.secrets.borg-key-boluo = {
+    owner = "boluo";
+    group = "boluo";
+    format = "binary";
+    sopsFile = ../../secrets/borg/lime.boluo.chat;
+  };
+  services.borgbackup.jobs = {
+    boluo = {
+      paths = [ "/var/lib/boluo" "/tmp/boluo.db.dump" ];
+      doInit = true;
+      user = "boluo";
+      group = "boluo";
+      repo =  "borg@koma:.";
+      preHook = "${postgres}/bin/pg_dump boluo > /tmp/boluo.db.dump";
+      environment = {
+        BORG_RSH = "ssh -o 'StrictHostKeyChecking=no' -o 'UserKnownHostsFile /dev/null' -i ${config.sops.secrets.borg-key-boluo.path}";
+        BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK = "yes";
+      };
+      encryption = {
+        mode = "repokey-blake2";
+        passCommand = "cat ${config.sops.secrets.borg-passphrase-boluo.path}";
+      };
+      compression = "auto,lzma";
+      startAt = "hourly";
     };
   };
 }

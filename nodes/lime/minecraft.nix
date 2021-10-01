@@ -30,4 +30,25 @@ in {
     format = "binary";
     sopsFile = ../../secrets/minecraft-bot;
   };
+
+  sops.secrets.borg-key-minecraft = {
+    format = "binary";
+    sopsFile = ../../secrets/borg/lime.minecraft;
+  };
+  services.borgbackup.jobs = {
+    minecraft = {
+      paths = [ "/var/lib/minecraft" ];
+      doInit = true;
+      repo =  "borg@koma:.";
+      encryption = {
+        mode = "none";
+      };
+      environment = {
+        BORG_RSH = "ssh  -o 'StrictHostKeyChecking=no' -i ${config.sops.secrets.borg-key-minecraft.path}";
+        BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK = "yes";
+      };
+      compression = "auto,lz4";
+      startAt = "daily";
+    };
+  };
 }

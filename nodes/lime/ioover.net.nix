@@ -65,10 +65,32 @@ in
     settings = issoSettings;
   };
 
+  sops.secrets.borg-key-ioover_net = {
+    format = "binary";
+    sopsFile = ../../secrets/borg/lime.ioover.net;
+  };
+  services.borgbackup.jobs = {
+    ioover_net = {
+      paths = [ "/var/lib/isso" ];
+      doInit = true;
+      repo =  "borg@koma:." ;
+      encryption = {
+        mode = "none";
+      };
+      environment = {
+        BORG_RSH = "ssh  -o 'StrictHostKeyChecking=no' -i ${config.sops.secrets.borg-key-minecraft.path}";
+        BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK = "yes";
+      };
+      compression = "auto,lzma";
+      startAt = "hourly";
+    };
+  };
+
   users.users.blog = {
     isNormalUser = true;
     openssh.authorizedKeys.keys = config.sshKeys; 
   };
+
 
   networking.firewall.allowedTCPPorts = [ 873 ];
   services.rsyncd = {
