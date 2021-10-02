@@ -50,11 +50,17 @@
         system = "x86_64-linux";
       };
     };
+    join = concatStringsSep "\n";
+    hostsLine = hostname: { host, ... }: "${host}    ${hostname}";
+    nodeToHost = mapAttrsToList hostsLine;
   in {
     darwinConfigurations."mithril" = darwin.lib.darwinSystem {
       system = "x86_64-darwin";
       modules = [
+        ./modules/nebula.nix
+        sops-nix.nixosModule
         home-manager.darwinModule
+        ./secrets/nodes/mithril.nix
         ./nodes/mithril/configuration.nix
       ];
     };
@@ -79,13 +85,10 @@
         {
           networking.hostName = hostname;
           networking.extraHosts = let
-            join = concatStringsSep "\n";
-            hostsLine = hostname: { host, ... }: "${host}    ${hostname}";
             filterSelf = name: { ... }: name != hostname;
-            otherHosts = filterAttrs filterSelf nodes;
-            hostsLines = mapAttrsToList hostsLine otherHosts;
+            others = filterAttrs filterSelf nodes;
           in
-            join hostsLines;
+            join (nodeToHost others);
         }
       ];
     }) nodes;

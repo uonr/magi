@@ -1,12 +1,31 @@
+# darwin-nix options
+# https://daiderd.com/nix-darwin/manual/index.html#sec-options
+
 { pkgs, ... }:
 
-# options https://daiderd.com/nix-darwin/manual/index.html#sec-options
 {
   imports = [
+    ../../modules/wired.nix
   ];
-  system.defaults.NSGlobalDomain = {
-    ApplePressAndHoldEnabled = true;
+
+  sops.gnupg.sshKeyPaths = [
+    "/private/etc/ssh/ssh_host_rsa_key.pub"
+  ];
+
+  services.wired = {
+    enable = true;
+    # It seems like sops-nix does not create the /run/secrets/ path correctly in nix-darwin
+    useSops = false;
+    hostName = "mithril";
   };
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+  system.defaults.NSGlobalDomain = {
+    ApplePressAndHoldEnabled = false;
+  };
+  nixpkgs.config.allowUnfree = true;
   nix = {
     # Ensure that flake support is enabled.
     package = pkgs.nixUnstable;
@@ -21,6 +40,8 @@
       experimental-features = nix-command flakes
     '';
   };
+
+  programs.zsh.enable = true;
   services.skhd.enable = false;
   services.redis.enable = false;
 
@@ -33,27 +54,5 @@
   };
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
-  home-manager.users.mikan = { pkgs, ... }:
-  let 
-    utils = import ../../modules/utils.nix { inherit pkgs; };
-  in {
-    imports = [
-      ../../modules/home.nix
-    ];
-    home.packages = with pkgs; utils ++ [
-      htop
-    ];
-    programs.neovim = {
-      enable = true;
-      viAlias = true;
-      vimAlias = true;
-      plugins = import ../../modules/vim-plugins.nix { inherit pkgs; };
-      extraConfig = builtins.readFile ../../share/config.vim;
-    };
-    programs.git = {
-      userName = "Tachibana Kiyomi";
-      userEmail = "me@yuru.me";
-      signing.key = "FFF6DDE2181C1F55E8885470C02D23F17563AA95";
-    };
-  };
+  home-manager.users.mikan = import ./home.nix;
 }
