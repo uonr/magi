@@ -1,10 +1,14 @@
 { pkgs, ... }:
-{
-  imports = [
-    ./aliases.nix
-  ];
+let 
+  aliases = import ./aliases.nix;
+in {
   home.packages = with pkgs; [
   ];
+
+  programs.fish.shellAliases = aliases;
+  programs.zsh.shellAliases = aliases;
+  programs.bash.shellAliases = aliases;
+
   programs.home-manager.enable = true;
   programs.bash = {
     enable = true;

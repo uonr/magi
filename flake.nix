@@ -3,6 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    darwin.url = "github:lnl7/nix-darwin/master";
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     deploy-rs.url = "github:serokell/deploy-rs";
@@ -17,7 +19,17 @@
     minecraft-telegram-bot.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, deploy-rs, home-manager, sops-nix, telegram-dice-bot, minecraft-telegram-bot, boluo-server }:
+  outputs = {
+    self,
+    nixpkgs,
+    darwin,
+    deploy-rs,
+    home-manager,
+    sops-nix,
+    telegram-dice-bot,
+    minecraft-telegram-bot,
+    boluo-server
+  }:
   with nixpkgs.lib;
   let 
     nodes = {
@@ -39,6 +51,13 @@
       };
     };
   in {
+    darwinConfigurations."mithril" = darwin.lib.darwinSystem {
+      system = "x86_64-darwin";
+      modules = [
+        home-manager.darwinModule
+        ./nodes/mithril/configuration.nix
+      ];
+    };
     nixosConfigurations = mapAttrs (hostname: { system, ... }: nixosSystem {
       inherit system;
       modules = [

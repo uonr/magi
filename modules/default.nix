@@ -1,11 +1,12 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 with lib;
-{
+let
+  utils = import ./utils { inherit pkgs; };
+  aliases = import ./aliases;
+in {
   imports = [
     ./wired.nix
     ./bbr.nix
-    ./utils.nix
-    ./aliases.nix
     ./neovim.nix
     ./nix.nix
     ./ssh.nix
@@ -22,4 +23,29 @@ with lib;
       keyMap = "us";
     };
   };
+  programs.neovim = {
+    defaultEditor = true;
+    enable = true;
+    viAlias = true;
+    vimAlias = true;
+    configure.packages.myVimPackage.start = import ./vim-plugins { inherit pkgs; };
+    configure.customRC = builtins.readFile ../share/config.vim;
+  };
+  programs.fish.shellAliases = aliases;
+  programs.zsh.shellAliases = aliases;
+  programs.bash.shellAliases = aliases;
+  environment.systemPackages = utils ++ with pkgs; [
+    btop
+    unar
+    killall
+    gnupg
+    pinentry-curses
+    deploy-rs.deploy-rs
+  ];
+  programs.fish.enable = true;
+  programs.zsh = {
+    enable = true;
+    syntaxHighlighting.enable = true;
+  };
+  environment.variables.PAGER = "less --RAW-CONTROL-CHARS --quit-if-one-screen"
 }
