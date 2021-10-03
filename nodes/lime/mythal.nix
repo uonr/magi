@@ -261,10 +261,7 @@ in {
           paths = [ "/tmp/mythal.db.dump" "/srv/forum" "/srv/wiki" ];
           repo =  "borg@${backupHost}:.";
           preHook = "${pkgs.mysql}/bin/mysqldump --user root --all-databases > /tmp/mythal.db.dump";
-          environment = {
-            BORG_RSH = "ssh -o 'StrictHostKeyChecking=no' -o 'UserKnownHostsFile /dev/null' -i /run/ssh-key";
-            BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK = "yes";
-          };
+          environment = import ../../modules/borg-env.nix { keyPath = "/run/ssh-key"; };
           encryption = {
             mode = "none";
           };

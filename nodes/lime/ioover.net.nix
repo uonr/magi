@@ -77,10 +77,7 @@ in
       encryption = {
         mode = "none";
       };
-      environment = {
-        BORG_RSH = "ssh  -o 'StrictHostKeyChecking=no' -i ${config.sops.secrets.borg-key-minecraft.path}";
-        BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK = "yes";
-      };
+      environment = import ../../modules/borg-env.nix { keyPath = config.sops.secrets.borg-key-ioover_net.path; };
       compression = "auto,lzma";
       startAt = "hourly";
     };

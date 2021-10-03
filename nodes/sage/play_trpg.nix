@@ -76,10 +76,7 @@ in {
       group = "play_trpg";
       repo =  "borg@${config.backupHost}:.";
       preHook = "${postgres}/bin/pg_dump play_trpg > /tmp/play_trpg.db.dump";
-      environment = {
-        BORG_RSH = "ssh -o 'StrictHostKeyChecking=no' -o 'UserKnownHostsFile /dev/null' -i ${config.sops.secrets.borg-key-play_trpg.path}";
-        BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK = "yes";
-      };
+      environment = import ../../modules/borg-env.nix { keyPath = config.sops.secrets.borg-key-play_trpg.path; };
       encryption = {
         mode = "none";
       };
