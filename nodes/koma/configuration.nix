@@ -30,6 +30,7 @@
   networking.interfaces.wlp3s0.useDHCP = true;
   environment.systemPackages = with pkgs; [
     docker-compose
+    docker-buildx
   ];
   virtualisation = {
     podman = {

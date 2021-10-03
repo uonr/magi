@@ -32,6 +32,7 @@
       source-han-sans
       source-han-serif
       iosevka
+      victor-mono
       emojione
       ibm-plex
       cascadia-code

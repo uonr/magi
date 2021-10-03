@@ -13,22 +13,22 @@
   # https://nixos.wiki/wiki/Yubikey
   services.udev.packages = [ pkgs.yubikey-personalization ];
   programs.ssh.startAgent = false;
-  programs.gnupg.agent = {
-    enable = true;
-    # pinentryFlavor = "curses";
-    enableSSHSupport = true;
-    enableExtraSocket = true;
-  };
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   # pinentryFlavor = "curses";
+  #   enableSSHSupport = true;
+  #   enableExtraSocket = true;
+  # };
   services.yubikey-agent.enable = false;
   security.pam.yubico = {                                                                                                                                                                                                                                                
-    enable = true;                                                                                                      
+    enable = false;                                                                                                      
     debug = true;                                                                                                       
     mode = "challenge-response";                                                                                        
   };
   # the PCSC-Lite daemon sometimes conflicts with gpg-agent.
   # services.pcscd.enable = true;
-  # security.pam.services.gdm.enableGnomeKeyring = true;
-  # services.gnome.gnome-keyring.enable = true;
+  security.pam.services.gdm.enableGnomeKeyring = true;
+  services.gnome.gnome-keyring.enable = true;
   users.mutableUsers = false;
   users.users.root.openssh.authorizedKeys.keys = config.sshKeys;
   users.users.mikan = {
@@ -49,6 +49,12 @@
       ../../modules/home.nix
     ];
 
+    services.gpg-agent = {
+      enable = true;
+      enableExtraSocket = true;
+      enableSshSupport = true;
+      pinentryFlavor = "gnome3";
+    };
     home.packages = with pkgs; [
       tdesktop
       google-chrome
