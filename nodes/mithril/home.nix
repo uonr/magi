@@ -9,13 +9,22 @@ in {
   imports = [
     ../../modules/home.nix
   ];
-  home.sessionVariables = {
-    EDITOR = "nvim";
+  home.aliases = {
+    top = "htop";
   };
   home.packages = with pkgs; utils ++ [
     htop
     gnupg
+    yarn
+    python3
+    youtube-dl
+    rustup
+    nodejs-16_x
+    nodePackages.pnpm
   ];
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
   programs.neovim = {
     enable = true;
     viAlias = true;
@@ -59,5 +68,6 @@ in {
     ".gnupg/gpg-agent.conf".text = with pkgs; ''
       pinentry-program ${pinentry_mac}/${pinentry_mac.binaryPath}
     '';
+    ".config/ideavim/ideavimrc".text = builtins.readFile ../../share/ideavimrc.vim;
   };
 }

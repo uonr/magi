@@ -17,6 +17,7 @@
     boluo-server.inputs.nixpkgs.follows = "nixpkgs";
     minecraft-telegram-bot.url = github:uonr/minecraft-telegram-bot;
     minecraft-telegram-bot.inputs.nixpkgs.follows = "nixpkgs";
+    rust-overlay.url = "github:oxalica/rust-overlay"; 
   };
 
   outputs = {
@@ -28,10 +29,14 @@
     sops-nix,
     telegram-dice-bot,
     minecraft-telegram-bot,
-    boluo-server
+    boluo-server,
+    rust-overlay,
   }:
   with nixpkgs.lib;
   let 
+    rustModule = { pkgs, ... }: {
+      nixpkgs.overlays = [ rust-overlay.overlay ];
+    };
     nodes = {
       sage = {
         host = "10.110.100.5";
@@ -57,6 +62,7 @@
     darwinConfigurations."mithril" = darwin.lib.darwinSystem {
       system = "x86_64-darwin";
       modules = [
+        rustModule
         ./modules/nebula.nix
         sops-nix.nixosModule
         home-manager.darwinModule

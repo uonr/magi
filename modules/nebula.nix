@@ -169,16 +169,16 @@ in {
         in
         {
           # Create systemd service for Nebula.
-          "nebula@${netName}" = {
+          "nebula-${netName}" = {
 
             serviceConfig.ProgramArguments = [
-              "${pkgs.nebula}/bin/nebula"
-              "-config"
-              "${configFile}"
+              "/bin/sh"
+              "-c"
+              "${pkgs.nebula}/bin/nebula -config ${configFile}"
             ];
 
             serviceConfig.StandardOutPath = "/var/log/nebula/nebula.log";
-
+            serviceConfig.StandardErrorPath = "/var/log/nebula/error.log";
             serviceConfig.KeepAlive = true;
             serviceConfig.RunAtLoad = true;
           };

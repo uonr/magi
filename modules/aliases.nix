@@ -7,4 +7,5 @@
   jou = "journalctl";
   du = "dust";
   doco = "docker-compose";
+  gpgkill = "gpgconf --kill gpg-agent && gpg-connect-agent reloadagent /bye";
 }
