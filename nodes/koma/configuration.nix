@@ -41,7 +41,9 @@
     };
     oci-containers.backend = "docker";
     docker.enable = true;
+    virtualbox.host.enable = true;
   };
+  users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
   services.vscode-server.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
