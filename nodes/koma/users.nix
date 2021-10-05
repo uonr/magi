@@ -65,9 +65,11 @@
       obsidian
       steam
       yubikey-manager
+      obs-studio
       cockatrice
       anki
       vlc
+      rustup
     ];
     programs.git = {
       userName = "Tachibana Kiyomi";

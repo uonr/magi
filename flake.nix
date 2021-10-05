@@ -78,9 +78,7 @@
         {
           nixpkgs.overlays = [
             deploy-rs.overlay
-            (final: prev: {
-              boluo-server = boluo-server.defaultPackage.${system};
-            })
+            boluo-server.overlay.${system}
           ];
         }
         home-manager.nixosModules.home-manager

@@ -17,6 +17,7 @@
       ./library.nix
       ./booru.nix
       ./backup.nix
+      ../../services/boluo.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -67,6 +68,13 @@
     ipv6 = true;
   };
   networking.firewall.enable = true;
+  services.boluo = {
+    enable = true;
+    enableACME = false;
+    serverName = "boluo-test.yuru.me";
+    secret = "don't panic";
+    nginxSettings = config.cert.yuru_me.nginxSettings;
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
