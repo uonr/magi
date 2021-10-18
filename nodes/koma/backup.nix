@@ -1,8 +1,8 @@
-{ ... }: 
+{ secrets, ... }: 
 let
   borgRepos = "/state/borg";
   nodeKey = let
-    keyPath = name: builtins.readFile ../../secrets/borg/${name}.pub;
+    keyPath = name: builtins.readFile "${secrets}/borg/${name}.pub";
   in {
     minecraft = keyPath "lime.minecraft";
     ioover_net = keyPath "lime.ioover.net";

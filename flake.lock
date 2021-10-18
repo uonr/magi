@@ -10,11 +10,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1633472864,
-        "narHash": "sha256-4avsIDMlnh50qM0s0fR0u1FILPo1axEpqvhtPae4Nss=",
+        "lastModified": 1633665400,
+        "narHash": "sha256-++zAZcMtlYXtpjpOBqG6AJX+S3vEvzVTACF/XRbUO98=",
         "owner": "mythal",
         "repo": "boluo-server",
-        "rev": "2e57323cea587e5b01e101ff24f2ba249479d8e7",
+        "rev": "c9eee28eadb2b6ea7b7b3bccbca297fcef7e3583",
         "type": "github"
       },
       "original": {
@@ -119,11 +119,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1633470532,
-        "narHash": "sha256-Eif0rOv/q7zegkrejPMMzLk3nk8t7y5iw92hQDz3mgI=",
+        "lastModified": 1634543124,
+        "narHash": "sha256-sPjP5GjZ0DgTgY8KljhGeix4L5ey7A3L1nm6lDffTh0=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "af2007bb7772c6f17f4924639f2eb8a321d74fb4",
+        "rev": "b5d738b5a3f8c3738433e0aa6482afb4ac635380",
         "type": "github"
       },
       "original": {
@@ -202,11 +202,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1633351077,
-        "narHash": "sha256-z38JG4Bb0GtM1aF1pANVdp1dniMP23Yb3HnRoJRy2uU=",
+        "lastModified": 1634436779,
+        "narHash": "sha256-D/nrXTWpe1bPIjFy85sgiLHYqu+AeaC6v5/+KlA9PRg=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "14aef06d9b3ad1d07626bdbb16083b83f92dc6c1",
+        "rev": "9aeeb7574fb784eaf6395f4400705b5f619e6cc3",
         "type": "github"
       },
       "original": {
@@ -240,6 +240,7 @@
         "minecraft-telegram-bot": "minecraft-telegram-bot",
         "nixpkgs": "nixpkgs_3",
         "rust-overlay": "rust-overlay_2",
+        "secrets": "secrets",
         "sops-nix": "sops-nix",
         "telegram-dice-bot": "telegram-dice-bot"
       }
@@ -269,17 +270,32 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1633400100,
-        "narHash": "sha256-kHQV7jZ2vVHVI9sfda1mUROVBbQbdfKcbIpKG9WdqGo=",
+        "lastModified": 1634523597,
+        "narHash": "sha256-lufdKJsyrJXVhMks53XgFHuotCKwzrBmecfMfoTcMEQ=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "9c2fc6a62ccbc6f420d71ecac6bf0b84dbbee64f",
+        "rev": "c09f12c35cc9fd41d7c3628fa92526cc29fc20fa",
         "type": "github"
       },
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "secrets": {
+      "locked": {
+        "lastModified": 1634555229,
+        "narHash": "sha256-KAwRde3DnauO9B880/rHdko0b68VjQtKI6oK6F88Wfw=",
+        "ref": "master",
+        "rev": "e5c011ee6ff0cb3024346a6888773a2d430c355c",
+        "revCount": 21,
+        "type": "git",
+        "url": "ssh://git@github.com/uonr/magi-secrets.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/uonr/magi-secrets.git"
       }
     },
     "sops-nix": {
@@ -310,11 +326,11 @@
         "utils": "utils_4"
       },
       "locked": {
-        "lastModified": 1632891349,
-        "narHash": "sha256-iOUcDVA/3zvWYdDP7ETP1enKXuXkGnrrSAA3oHEL38g=",
+        "lastModified": 1633769511,
+        "narHash": "sha256-qd2+9lgH5axGyczbu52R6O19nITCNquSbttP+eXRl0Q=",
         "owner": "mythal",
         "repo": "telegram-dice-bot",
-        "rev": "80440cab945a8165a4339a9c653b4f892d39f19e",
+        "rev": "bcc9a1bcd4a38c803187890ac93eca08cb056bf3",
         "type": "github"
       },
       "original": {

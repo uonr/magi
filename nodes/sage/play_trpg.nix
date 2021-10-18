@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, secrets, ... }:
 
 let
   port = "8885";
@@ -61,13 +61,13 @@ in {
   };
   sops.secrets.playTrpgEnv = {
     format = "binary";
-    sopsFile = ../../secrets/play_trpg;
+    sopsFile = "${secrets}/play_trpg";
   };
   sops.secrets.borg-key-play_trpg = {
     owner = "play_trpg";
     group = "play_trpg";
     format = "binary";
-    sopsFile = ../../secrets/borg/sage.play_trpg;
+    sopsFile = "${secrets}/borg/sage.play_trpg";
   };
   services.borgbackup.jobs = {
     play_trpg = {

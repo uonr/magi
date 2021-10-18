@@ -16,6 +16,7 @@
     boluo-server.url = github:mythal/boluo-server;
     boluo-server.inputs.nixpkgs.follows = "nixpkgs";
     minecraft-telegram-bot.url = github:uonr/minecraft-telegram-bot;
+    secrets.url = git+ssh://git@github.com/uonr/magi-secrets.git;
     minecraft-telegram-bot.inputs.nixpkgs.follows = "nixpkgs";
     rust-overlay.url = "github:oxalica/rust-overlay"; 
   };
@@ -31,6 +32,7 @@
     minecraft-telegram-bot,
     boluo-server,
     rust-overlay,
+    secrets,
   }:
   with nixpkgs.lib;
   let 
@@ -66,12 +68,13 @@
         ./modules/nebula.nix
         sops-nix.nixosModule
         home-manager.darwinModule
-        ./secrets/nodes/mithril.nix
+        "${secrets}/nodes/mithril.nix"
         ./nodes/mithril/configuration.nix
       ];
     };
     nixosConfigurations = mapAttrs (hostname: { system, ... }: nixosSystem {
       inherit system;
+      specialArgs = { inherit secrets; };
       modules = [
         telegram-dice-bot.nixosModule.${system}
         minecraft-telegram-bot.nixosModule.${system}
@@ -85,7 +88,7 @@
         sops-nix.nixosModules.sops
         ./modules
         ./nodes/${hostname}/configuration.nix
-        ./secrets/nodes/${hostname}.nix
+        "${secrets}/nodes/${hostname}.nix"
         {
           networking.hostName = hostname;
           networking.extraHosts = let

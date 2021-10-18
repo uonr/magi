@@ -71,10 +71,11 @@
   services.boluo = {
     enable = true;
     enableACME = false;
-    serverName = "boluo-test.yuru.me";
+    serverName = "boluo.yuru.me";
     secret = "don't panic";
     nginxSettings = config.cert.yuru_me.nginxSettings;
   };
+  services.telegram-dice-bot.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

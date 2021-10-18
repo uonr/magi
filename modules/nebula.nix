@@ -53,7 +53,7 @@ in {
               The static host map defines a set of hosts with fixed IP addresses on the internet (or any network).
               A host can have multiple fixed IP addresses defined here, and nebula will try each when establishing a tunnel.
             '';
-            example = literalExample ''
+            example = literalExpression ''
               { "192.168.100.1" = [ "100.64.22.11:4242" ]; }
             '';
           };
@@ -122,7 +122,7 @@ in {
               <link xlink:href="https://github.com/slackhq/nebula/blob/master/examples/config.yml"/>
               for details on supported values.
             '';
-            example = literalExample ''
+            example = literalExpression ''
               {
                 lighthouse.dns = {
                   host = "0.0.0.0";

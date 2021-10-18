@@ -1,4 +1,4 @@
-{ lib, config, ... }: 
+{ lib, config, secrets, ... }: 
 with lib;
 let
   cfg = config.services.wired;
@@ -22,14 +22,14 @@ in {
   config = mkIf cfg.enable {
     sops.secrets.nebulaKey = {
       format = "binary";
-      sopsFile = ../secrets/nebula/${cfg.hostName}.key;
+      sopsFile = "${secrets}/nebula/${cfg.hostName}.key";
     };
     services.nebula.networks.wired = {
       enable = true;
       isLighthouse = cfg.isLighthouse;
       key = if cfg.useSops then config.sops.secrets.nebulaKey.path else "/etc/nebula/host.key";
-      ca = ../secrets/nebula/ca.crt;
-      cert = ../secrets/nebula/${cfg.hostName}.crt;
+      ca = "${secrets}/nebula/ca.crt";
+      cert = "${secrets}/nebula/${cfg.hostName}.crt";
       lighthouses = if cfg.isLighthouse then [] else [ "10.110.1.1" "10.110.1.2" ];
       staticHostMap = {
         "10.110.1.1" = [ "154.31.112.93:4242" ];

@@ -1,4 +1,4 @@
-{ lib, pkgs, config, minecraft-telegram-bot, ... }:
+{ lib, pkgs, config, minecraft-telegram-bot, secrets, ... }:
 let
   minecraftServerOverlay = self: super: {
     minecraft-server = super.minecraft-server.overrideAttrs (old: {
@@ -28,12 +28,12 @@ in {
   };
   sops.secrets.minecraftBotEnv = {
     format = "binary";
-    sopsFile = ../../secrets/minecraft-bot;
+    sopsFile = "${secrets}/minecraft-bot";
   };
 
   sops.secrets.borg-key-minecraft = {
     format = "binary";
-    sopsFile = ../../secrets/borg/lime.minecraft;
+    sopsFile = "${secrets}/borg/lime.minecraft";
   };
   services.borgbackup.jobs = {
     minecraft = {

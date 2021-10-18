@@ -15,7 +15,6 @@ in {
     };
     serverName = mkOption {
       type = types.str;
-      default = "boluo.chat";
     };
     serverAliases = mkOption {
       type = types.listOf types.str;
@@ -75,6 +74,7 @@ in {
         HOST = "0.0.0.0";
         DATABASE_URL = "postgresql://boluo@%%2Fvar%%2Frun%%2Fpostgresql/boluo";
         SYSTEMD = "1";
+        DUMMY = "2";
         RUST_BACKTRACE = "1";
         MEDIA_PATH = "/var/lib/boluo/media/";
         SECRET = cfg.secret;
@@ -90,7 +90,7 @@ in {
       enableACME = cfg.enableACME;
       root = pkgs.fetchzip {
           url = "https://github.com/mythal/boluo/releases/latest/download/boluo.zip";
-          sha256 = "NLd4AWmW357o7u4f97tLEPWIWfYxyvDZ+cgVgTyRdvU=";
+          sha256 = "8F5uwiJczJsCPMrdTlJOu9alS6FQUnCcS6hlAjGZl8c=";
       };
       locations."/api" = {
         proxyPass = "http://127.0.0.1:${cfg.serverPort}";

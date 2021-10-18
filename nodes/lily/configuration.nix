@@ -38,7 +38,6 @@
   home-manager.users.root = import ./home.nix;
   home-manager.users.mikan = import ./home.nix;
   services.wired.enable = true;
-  services.telegram-dice-bot.enable = true;
   services.vscode-server.enable = true;
   networking.firewall.enable = true;
   networking.bbr.enable = true;

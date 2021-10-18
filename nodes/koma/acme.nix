@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, secrets, ... }:
 
 with lib;
 {
@@ -18,7 +18,7 @@ with lib;
     };
     sops.secrets.cloudflare-yuru_me = {
       format = "binary";
-      sopsFile = ../../secrets/cloudflare-yuru.me;
+      sopsFile = "${secrets}/cloudflare-yuru.me";
     };
     security.acme.certs."yuru.me" = {
       group = "nginx";

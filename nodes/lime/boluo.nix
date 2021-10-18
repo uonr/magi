@@ -1,4 +1,4 @@
-{ pkgs, lib, boluo-server, config, ... }:
+{ pkgs, lib, boluo-server, config, secrets, ... }:
 let
   uid = 65220;
   gid = uid;
@@ -78,7 +78,7 @@ in {
     enableACME = true;
     root = pkgs.fetchzip {
         url = "https://github.com/mythal/boluo/releases/latest/download/boluo.zip";
-        sha256 = "NLd4AWmW357o7u4f97tLEPWIWfYxyvDZ+cgVgTyRdvU=";
+        sha256 = "1TRV0UonS2+CLtMoWcHnOW23BWo+JXu+BzUIALspPNA=";
     };
     locations."/api" = {
       proxyPass = "http://127.0.0.1:${serverPort}";
@@ -96,13 +96,13 @@ in {
     owner = "boluo";
     group = "boluo";
     format = "binary";
-    sopsFile = ../../secrets/borg/lime.borg.passphrase.boluo;
+    sopsFile = "${secrets}/borg/lime.borg.passphrase.boluo";
   };
   sops.secrets.borg-key-boluo = {
     owner = "boluo";
     group = "boluo";
     format = "binary";
-    sopsFile = ../../secrets/borg/lime.boluo.chat;
+    sopsFile = "${secrets}/borg/lime.boluo.chat";
   };
   services.borgbackup.jobs = {
     boluo = {

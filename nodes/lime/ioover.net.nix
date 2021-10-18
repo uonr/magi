@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, secrets, ... }:
 let
   root = "/srv/ioover.net/";
   issoSettings = {
@@ -67,7 +67,7 @@ in
 
   sops.secrets.borg-key-ioover_net = {
     format = "binary";
-    sopsFile = ../../secrets/borg/lime.ioover.net;
+    sopsFile = "${secrets}/borg/lime.ioover.net";
   };
   services.borgbackup.jobs = {
     ioover_net = {

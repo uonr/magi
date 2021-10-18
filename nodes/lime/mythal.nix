@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: 
+{ pkgs, config, secrets, ... }: 
 let
   port = 8081;
   uid = 941;
@@ -73,7 +73,7 @@ in {
 
   sops.secrets.borg-key-mythal = {
     format = "binary";
-    sopsFile = ../../secrets/borg/lime.mythal;
+    sopsFile = "${secrets}/borg/lime.mythal";
   };
 
   containers.mythal = {
