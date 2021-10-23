@@ -62,6 +62,7 @@
     nodeToHost = mapAttrsToList hostsLine;
   in {
     darwinConfigurations."mithril" = darwin.lib.darwinSystem {
+      specialArgs = { inherit secrets; };
       system = "x86_64-darwin";
       modules = [
         rustModule
