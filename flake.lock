@@ -119,11 +119,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1634939539,
-        "narHash": "sha256-m+RC6it1doMjq5U5e1B36thzOOBc1GF4tVLK2SNMvzg=",
+        "lastModified": 1635394434,
+        "narHash": "sha256-aOllNFaasxQalCt2D0FXrgOMsn0TZZue42uNkjH896I=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "8278c14f5f8725e1b5936d6f54e63d4626aae98c",
+        "rev": "158bc593983ef26daeb9cc73fd659f64b4d1998a",
         "type": "github"
       },
       "original": {
@@ -202,11 +202,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1634782485,
-        "narHash": "sha256-psfh4OQSokGXG0lpq3zKFbhOo3QfoeudRcaUnwMRkQo=",
+        "lastModified": 1635314702,
+        "narHash": "sha256-/CEuEaXFVl2vQ+o3lYzDPz4lfbHbMebyJqQ4jZ1PT30=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "34ad3ffe08adfca17fcb4e4a47bb5f3b113687be",
+        "rev": "a4bf44345706231f9dd56f85757499af1e940847",
         "type": "github"
       },
       "original": {
@@ -270,11 +270,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1634955529,
-        "narHash": "sha256-JblLwk4vYtRM/uJILfxve7bhGXLdI1lacZar5zQXjnM=",
+        "lastModified": 1635387260,
+        "narHash": "sha256-8rOGoTZfF066m3OHWl/a1INOGwqeLlx8sSPDPBWjkrs=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "e0b4846b8db4d418f4dc5f8cf6894dc61b1707df",
+        "rev": "1347817f5d8e2cc42e8645015079916d68a884d9",
         "type": "github"
       },
       "original": {
@@ -285,11 +285,11 @@
     },
     "secrets": {
       "locked": {
-        "lastModified": 1634555229,
-        "narHash": "sha256-KAwRde3DnauO9B880/rHdko0b68VjQtKI6oK6F88Wfw=",
+        "lastModified": 1635365003,
+        "narHash": "sha256-z9cwOTg9BntMLW7vrjSZh3vXrJaLtgTrcgHssKNJsTU=",
         "ref": "master",
-        "rev": "e5c011ee6ff0cb3024346a6888773a2d430c355c",
-        "revCount": 21,
+        "rev": "885beb1491aed080d85f3e0c891791e345f4ad8b",
+        "revCount": 22,
         "type": "git",
         "url": "ssh://git@github.com/uonr/magi-secrets.git"
       },

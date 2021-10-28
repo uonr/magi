@@ -61,6 +61,18 @@
     hostsLine = hostname: { host, ... }: "${host}    ${hostname}";
     nodeToHost = mapAttrsToList hostsLine;
   in {
+    darwinConfigurations."hg" = darwin.lib.darwinSystem {
+      specialArgs = { inherit secrets; };
+      system = "aarch64-darwin";
+      modules = [
+        rustModule
+        ./modules/nebula.nix
+        sops-nix.nixosModule
+        home-manager.darwinModule
+        "${secrets}/nodes/hg.nix"
+        ./nodes/hg/configuration.nix
+      ];
+    };
     darwinConfigurations."mithril" = darwin.lib.darwinSystem {
       specialArgs = { inherit secrets; };
       system = "x86_64-darwin";
