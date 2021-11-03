@@ -7,7 +7,7 @@
 let 
   nixos-vscode-server = fetchTarball {
     url = "https://github.com/msteen/nixos-vscode-server/tarball/master";
-    sha256 = "14zqbjsm675ahhkdmpncsypxiyhc4c9kyhabpwf37q6qg73h8xz5";
+    sha256 = "00aqwrr6bgvkz9bminval7waxjamb792c0bz894ap8ciqawkdgxp";
   };
 in {
   imports = [
