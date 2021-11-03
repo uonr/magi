@@ -69,8 +69,13 @@
   };
   networking.firewall.enable = true;
   services.factorio = {
+    admins = ["miiiikan"];
+    lan = true;
+    enable = true;
     openFirewall = true;
-    description = "2rd uwu";
+    game-name = "Peanut";
+    saveName = "peanut";
+    description = "uwu";
   };
   services.boluo = {
     enable = true;
