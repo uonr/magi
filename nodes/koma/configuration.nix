@@ -68,6 +68,10 @@
     ipv6 = true;
   };
   networking.firewall.enable = true;
+  services.factorio = {
+    openFirewall = true;
+    description = "2rd uwu";
+  };
   services.boluo = {
     enable = true;
     enableACME = false;
