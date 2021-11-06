@@ -13,7 +13,6 @@
       ./netdata.nix
       ./ioover.net.nix
       ./boluo.nix
-      ./mythal.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -66,7 +65,6 @@
 
   services.wired.enable = true;
   services.nginx.enable = true;
-  services.vscode-server.enable = true;
   swapDevices = [
     {
       device = "/var/swap";

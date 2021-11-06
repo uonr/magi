@@ -90,17 +90,4 @@ in
 
 
   networking.firewall.allowedTCPPorts = [ 873 ];
-  services.rsyncd = {
-    enable = true;
-    settings = {
-      blog = {
-        uid = "nginx";
-        gid = "nginx";
-        "use chroot" = true;
-        "read only" = false;
-        path = root;
-        "hosts allow" = "10.110.100.0/24";
-      };
-    };
-  };
 }

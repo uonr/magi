@@ -90,7 +90,7 @@ in {
       enableACME = cfg.enableACME;
       root = pkgs.fetchzip {
           url = "https://github.com/mythal/boluo/releases/latest/download/boluo.zip";
-          sha256 = "8F5uwiJczJsCPMrdTlJOu9alS6FQUnCcS6hlAjGZl8c=";
+          sha256 = "t1/erSgm0G5elB9e0XAt13CNxMLUbIMUQw+DFyxPlXQ=";
       };
       locations."/api" = {
         proxyPass = "http://127.0.0.1:${cfg.serverPort}";

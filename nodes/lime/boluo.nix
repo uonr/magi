@@ -54,21 +54,6 @@ in {
     };
   };
   services.redis.enable = true;
-  services.rsyncd = {
-    enable = true;
-    # man rsyncd.conf
-    settings = {
-      boluo = {
-        uid = "boluo";
-        gid = "boluo";
-        "use chroot" = true;
-        "max connections" = 4;
-        "hosts allow" = "154.31.112.74";
-        "read only" = false;
-        path = "/var/lib/boluo/";
-      };
-    };
-  };
   services.nginx.recommendedTlsSettings = true;
   services.nginx.recommendedProxySettings = true;
   services.nginx.virtualHosts."boluo.chat" = {
@@ -78,7 +63,7 @@ in {
     enableACME = true;
     root = pkgs.fetchzip {
         url = "https://github.com/mythal/boluo/releases/latest/download/boluo.zip";
-        sha256 = "1TRV0UonS2+CLtMoWcHnOW23BWo+JXu+BzUIALspPNA=";
+        sha256 = "t1/erSgm0G5elB9e0XAt13CNxMLUbIMUQw+DFyxPlXQ=";
     };
     locations."/api" = {
       proxyPass = "http://127.0.0.1:${serverPort}";

@@ -23,6 +23,7 @@ in {
   '';
   services.ddclient.domains = [ "play.yuru.me" ];
   services.nginx.virtualHosts."play.yuru.me" = {
+    serverAliases = [ "log.mythal.net" ];
     # addSSL = true;
     # enableACME = true;
     locations."/" = {
