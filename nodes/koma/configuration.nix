@@ -2,8 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
-
+{ config, pkgs, lib, ... }:
 {
   imports =
     [
@@ -18,6 +17,8 @@
       ./booru.nix
       ./backup.nix
       ../../services/boluo.nix
+      ../../services/factorio.nix
+      ../../services/play_trpg.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -58,6 +59,7 @@
   services.wired.enable = true;
   services.nginx.enable = true;
 
+  services.factorio.enable = true;
   services.ddclient = {
     enable = true;
     interval = "1min";
@@ -68,15 +70,7 @@
     ipv6 = true;
   };
   networking.firewall.enable = true;
-  services.factorio = {
-    admins = ["miiiikan"];
-    lan = true;
-    enable = true;
-    openFirewall = true;
-    game-name = "Peanut";
-    saveName = "peanut";
-    description = "uwu";
-  };
+
   services.boluo = {
     enable = true;
     enableACME = false;
