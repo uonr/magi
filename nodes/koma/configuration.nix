@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, secrets, ... }:
 {
   imports =
     [
@@ -60,6 +60,10 @@
   services.nginx.enable = true;
 
   services.factorio.enable = true;
+  sops.secrets.ddclientPassword = {
+    format = "binary";
+    sopsFile = "${secrets}/yuru_me_ddclient_password";
+  };
   services.ddclient = {
     enable = true;
     interval = "1min";
@@ -68,6 +72,8 @@
     protocol = "cloudflare";
     zone = "yuru.me";
     ipv6 = true;
+    username = "me@yuru.me";
+    passwordFile = config.sops.secrets.ddclientPassword.path;
   };
   networking.firewall.enable = true;
 

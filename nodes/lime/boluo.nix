@@ -5,9 +5,9 @@ let
   serverPort = "3000";
   postgres = pkgs.postgresql_13;
 in {
-
   users.users.boluo = {
-    isSystemUser = true;
+    isNormalUser = true;
+    openssh.authorizedKeys.keys = config.sshKeys;
     uid = uid;
     home = "/var/lib/boluo";
     createHome = true;
