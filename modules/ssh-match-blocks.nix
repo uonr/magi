@@ -11,8 +11,24 @@
     };
   };
 
-  bifrost = {
-    hostname = "103.117.100.87";
+  suiu = {
+    hostname = "45.88.193.19";
     user = "root";
   };
+
+  lime = {
+    hostname = "10.110.1.1";
+    user = "root";
+  };
+
+  usagi = {
+    hostname = "45.88.193.129";
+    user = "root";
+  };
+
+  same = {
+    hostname = "104.198.93.96";
+    user = "mikan";
+  };
+
 }

@@ -29,7 +29,6 @@
   nixpkgs.config.allowUnfree = true;
   nix = {
     # Ensure that flake support is enabled.
-    package = pkgs.nixUnstable;
     gc = {
       automatic = true;
       interval = { Hour = 48; Minute = 0; };
@@ -37,6 +36,7 @@
     };
     trustedUsers = [ "root" "mikan" ];
     allowedUsers = [ "root" "mikan" ];
+    package = pkgs.nixUnstable;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';

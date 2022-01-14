@@ -38,8 +38,6 @@ in {
       unar
       killall
       gnupg
-      pinentry-curses
-      deploy-rs.deploy-rs
     ];
     programs.fish.enable = true;
     programs.zsh = {
